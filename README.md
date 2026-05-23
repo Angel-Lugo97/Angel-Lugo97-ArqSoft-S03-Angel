@@ -404,8 +404,8 @@ Además, el proyecto combina funcionalidad con diseño visual personalizado, log
 # Clausula de IA
 
 ```text
-Yo Angel Abraham Lugo Saenz declaro que utilice IA,
-para realizar mi README.
+Yo Angel Abraham Lugo Saenz declaro que utilicé IA,
+para realizar mi README, para ayudarme a corregir los problemas que tenía en que se buggeo mi local con el global y la mejora de la visualización de mi página
 ```
 
 **Nota:** Este README fue elaborado con apoyo de una IA a partir de la información proporcionada por Angel Abraham Lugo Saenz.
