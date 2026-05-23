@@ -1,0 +1,87 @@
+@model List<CatalogoApp.Domain.Models.Item>
+@{
+    ViewData["Title"] = "Catálogo";
+    var generos = ViewBag.Generos as List<string> ?? new List<string>();
+    var generoActual = ViewBag.GeneroActual as string;
+    var usuarioId = Context.Session.GetInt32("UsuarioId");
+}
+
+<div class="content-panel">
+    <h1 class="page-title">Catálogo de Videojuegos</h1>
+
+    <p class="lead">
+        Bienvenido al archivo de la forja. Aquí puedes revisar los videojuegos registrados,
+        filtrarlos por género, iniciar sesión y escribir reseñas.
+    </p>
+
+    <div class="filter-bar">
+        <strong>Filtrar por género:</strong>
+        <div class="mt-2 d-flex flex-wrap gap-2">
+            <a class="chip @(string.IsNullOrWhiteSpace(generoActual) ? "active" : "")" asp-action="Index">Todos</a>
+            @foreach (var gen in generos)
+            {
+                <a class="chip @(generoActual == gen ? "active" : "")" asp-action="Index" asp-route-genero="@gen">@gen</a>
+            }
+
+            @if (usuarioId != null)
+            {
+                <a class="btn btn-primary ms-auto" asp-action="Agregar">+ Agregar videojuego</a>
+            }
+            else
+            {
+                <a class="btn btn-secondary ms-auto" asp-controller="Usuarios" asp-action="Login" asp-route-returnUrl="/Catalogo/Agregar">Inicia sesión para agregar</a>
+            }
+        </div>
+    </div>
+
+    <hr class="forge-divider" />
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-dark border border-warning text-light">
+            No hay videojuegos disponibles en este momento.
+        </div>
+    }
+    else
+    {
+        <section class="game-grid">
+            @foreach (var item in Model)
+            {
+                var cantidadResenas = item.Resenas?.Count ?? 0;
+                var promedio = cantidadResenas > 0 ? item.Resenas!.Average(r => r.Calificacion) : 0;
+
+                <article class="game-card">
+                    <span class="badge bg-success mb-3">@item.Genero</span>
+
+                    <h3>
+                        <a class="game-title" asp-action="Detalle" asp-route-id="@item.Id">@item.Titulo</a>
+                    </h3>
+
+                    <p class="game-meta">@item.Consola · @item.Ano</p>
+                    <p>@item.Descripcion</p>
+
+                    <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2">
+                        <span class="badge-soft">@cantidadResenas reseña(s)</span>
+                        @if (cantidadResenas > 0)
+                        {
+                            <span class="rating">★ @promedio.ToString("0.0")</span>
+                        }
+                    </div>
+
+                    <div class="game-actions">
+                        <a class="btn btn-secondary btn-sm" asp-action="Detalle" asp-route-id="@item.Id">Ver detalles</a>
+
+                        @if (usuarioId != null)
+                        {
+                            <a class="btn btn-primary btn-sm" asp-controller="Resenas" asp-action="Agregar" asp-route-itemId="@item.Id">Poner reseña</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-outline-light btn-sm custom-outline" asp-controller="Usuarios" asp-action="Login" asp-route-returnUrl='@($"/Resenas/Agregar?itemId={item.Id}")'>Inicia sesión para reseñar</a>
+                        }
+                    </div>
+                </article>
+            }
+        </section>
+    }
+</div>

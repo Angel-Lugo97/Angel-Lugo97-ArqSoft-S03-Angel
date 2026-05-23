@@ -1,0 +1,34 @@
+@{
+    ViewData["Title"] = "Iniciar sesión";
+}
+
+<section class="form-panel">
+    <h1 class="page-title">Iniciar sesión</h1>
+    <p class="lead">Necesitas una cuenta para poder agregar videojuegos y escribir reseñas.</p>
+
+    <hr class="forge-divider" />
+
+    <form asp-action="Login" method="post">
+        <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">@ViewBag.Error</div>
+        }
+
+        <div class="mb-3">
+            <label class="form-label">Correo</label>
+            <input name="correo" type="email" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Contraseña</label>
+            <input name="password" type="password" class="form-control" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Entrar</button>
+        <a asp-action="Registro" class="btn btn-secondary">Crear cuenta</a>
+
+        <p class="text-muted mt-3 mb-0">Usuario de prueba: demo@catalogo.com / 1234</p>
+    </form>
+</section>

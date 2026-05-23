@@ -1,0 +1,36 @@
+@model CatalogoApp.Domain.Models.Usuario
+@{
+    ViewData["Title"] = "Registro";
+}
+
+<section class="form-panel">
+    <h1 class="page-title">Crear cuenta</h1>
+    <p class="lead">Regístrate para iniciar sesión, agregar videojuegos y escribir reseñas.</p>
+
+    <hr class="forge-divider" />
+
+    <form asp-action="Registro" method="post">
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">@ViewBag.Error</div>
+        }
+
+        <div class="mb-3">
+            <label asp-for="Nombre" class="form-label">Nombre</label>
+            <input asp-for="Nombre" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Correo" class="form-label">Correo</label>
+            <input asp-for="Correo" type="email" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Password" class="form-label">Contraseña</label>
+            <input asp-for="Password" type="password" class="form-control" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Registrarme</button>
+        <a asp-action="Login" class="btn btn-secondary">Ya tengo cuenta</a>
+    </form>
+</section>

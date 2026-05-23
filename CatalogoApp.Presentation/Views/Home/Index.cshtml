@@ -1,0 +1,32 @@
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<div class="hero-panel">
+    <span class="hero-badge">XVIII LEGION • SALAMANDERS INSPIRED</span>
+
+    <h1>Bienvenido al Catálogo de la Forja</h1>
+
+    <p>
+        Explora tu colección de videojuegos con una interfaz inspirada en la estética
+        de los Salamanders: tonos volcánicos, verde esmeralda, detalles de fuego
+        y una presentación más fuerte, elegante y legible.
+    </p>
+
+    <div class="hero-actions">
+        <a asp-controller="Catalogo" asp-action="Index" class="btn btn-primary animate-pulse">
+            Ver catálogo
+        </a>
+
+        <a asp-controller="Catalogo" asp-action="Agregar" class="btn btn-outline-light custom-outline">
+            Agregar videojuego
+        </a>
+    </div>
+
+    <hr class="forge-divider" />
+
+    <p class="lead mb-0">
+        Proyecto con inicio de sesión, registro de usuarios, catálogo de videojuegos
+        y reseñas protegidas para usuarios autenticados.
+    </p>
+</div>
